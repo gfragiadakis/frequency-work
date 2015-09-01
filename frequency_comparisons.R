@@ -72,7 +72,7 @@ for (i in 1:length(days)){
       df2 <- dplyr::filter(volunteers_df, Timepoints == days[j])
       df1 <- dplyr::select(df1, neutrophils_frequency:classical_monocytes_frequency)
       df2 <- dplyr::select(df2, neutrophils_frequency:classical_monocytes_frequency)
-      vol_diff_df <- data.frame(Individuals = volunteers_df$Individuals, Timepoint = rep(paste(days[j]," v ",days[i],sep=""),20),
+      vol_diff_df <- data.frame(Individuals = unique(volunteers_df$Individuals), Timepoint = rep(paste(days[j]," v ",days[i],sep=""),20),
                                 abs(df2 - df1))
       volunteers_difference_df <- rbind(volunteers_difference_df, vol_diff_df)
     }
@@ -84,7 +84,7 @@ plot_values(volunteers_difference_df, "volunteers_difference_plot", '~/Documents
 # To compare on same plot, we need a single data frame with both the volunteer differences and the surgery differences, 
 # with the same names for frequencies
 
-vol <- data.frame(Individuals = volunteers_difference_df$Individuals, Timepoint = volunteers_difference_df$Timepoint,
+vol <- data.frame(Individuals = unique(volunteers_difference_df$Individuals), Timepoint = volunteers_difference_df$Timepoint,
            Neutrophils = volunteers_difference_df$neutrophils_frequency,
            Monocytes = volunteers_difference_df$classical_monocytes_frequency,
            CD4Tcells = volunteers_difference_df$CD4_T_cells_frequency,
@@ -111,7 +111,6 @@ abs_differences_df <- cbind(differences_df[,!nums],abs(differences_df[,nums]))
 plot_values(abs_differences_df, "abs_difference_plot", '~/Documents/healthyNormals/frequency_work/plots/')
 
 # calculating statistics
-
-
+# Here we want to do 
 
 
